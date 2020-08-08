@@ -1,0 +1,37 @@
+# Set server hostname
+#- hostname:
+#    name: puppet-node-linux.gordonmurray.com
+#    use: debian
+
+#  enable the universe repository, which contains packages necessary for Puppet Server
+- name: Enable universe repository
+  apt_repository:
+    repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+    state: present
+    update_cache: True
+
+# Install Puppet deb
+- name: Install Puppet .deb
+  apt:
+    deb: https://apt.puppet.com/puppet6-release-focal.deb
+
+# Install packages
+- name: Install packages
+  vars:
+    packages:
+      - ntp
+      - puppet
+  apt:
+    pkg: "{{ packages }}"
+    update_cache: yes
+    state: latest
+
+- name: Make sure a service is running
+  systemd:
+    state: started
+    name: puppet
+
+- name: enable service
+  systemd:
+    name: puppet
+    enabled: yes

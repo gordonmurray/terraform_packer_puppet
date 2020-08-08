@@ -1,0 +1,13 @@
+---
+# Configure a Puppet Master instance
+
+- name: Configure a Puppet Master instance
+
+  gather_facts: false
+
+  become: true  
+
+  hosts: all
+
+  roles:
+    - puppet_master

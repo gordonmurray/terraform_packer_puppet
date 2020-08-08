@@ -1,0 +1,13 @@
+---
+# Configure a Puppet linux node
+
+- name: Configure a Puppet linux node instance
+
+  gather_facts: false
+
+  become: true  
+
+  hosts: all
+
+  roles:
+    - puppet_node_linux

@@ -1,0 +1,37 @@
+{
+  "variables": {
+    "base_ami_id": "ami-089cc16f7f08c4457",
+    "region": "eu-west-1",
+    "instance_type": "t2.medium",
+    "vpc_id": "vpc-xxxxx",
+    "subnet_id": "subnet-xxxxxx",
+    "access_key": "xxxxxxxxxxxxxxxxxxxxx",
+    "secret_key": "xxxxxxxxxxxxxxxxxxxxx"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `access_key`}}",
+      "secret_key": "{{user `secret_key`}}",
+      "region": "{{user `region`}}",
+      "instance_type": "{{user `instance_type`}}",
+      "source_ami": "{{user `base_ami_id`}}",
+      "ami_name": "puppet_master",
+      "ami_description": "Puppet Master instance",
+      "ssh_username": "ubuntu",
+      "vpc_id": "{{user `vpc_id`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "force_deregister": "true",
+      "force_delete_snapshot": "true",
+      "tags": {
+        "Name": "puppet_linux_master"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "ansible/puppet_master.yml"
+    }
+  ]
+}

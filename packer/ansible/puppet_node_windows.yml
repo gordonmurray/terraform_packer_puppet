@@ -1,0 +1,13 @@
+---
+# Configure a Puppet windows node
+
+- name: Configure a Puppet windows node instance
+
+  gather_facts: false
+
+  become_user: Administrator
+
+  hosts: all
+
+  roles:
+    - puppet_node_windows

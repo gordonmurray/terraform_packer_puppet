@@ -1,0 +1,47 @@
+{
+    "variables": {
+        "base_ami_id": "ami-0d30f8acc8b87dfd7",
+        "region": "eu-west-1",
+        "instance_type": "t2.medium",
+        "vpc_id": "vpc-e8bfa78d",
+        "subnet_id": "subnet-a135ded7",
+        "rdp_password": "compl3xpassw0rd",
+        "access_key": "",
+        "secret_key": ""
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `access_key`}}",
+            "secret_key": "{{user `secret_key`}}",
+            "region": "{{user `region`}}",
+            "instance_type": "{{user `instance_type`}}",
+            "source_ami": "{{user `base_ami_id`}}",
+            "ami_name": "puppet_windows_node",
+            "ami_description": "Puppet Windows node instance",
+            "user_data_file": "ansible/roles/puppet_node_windows/files/userdata.txt",
+            "communicator": "winrm",
+            "winrm_username": "Administrator",
+            "winrm_use_ssl": false,
+            "winrm_insecure": true,
+            "vpc_id": "{{user `vpc_id`}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "force_deregister": "true",
+            "force_delete_snapshot": "true",
+            "tags": {
+                "Name": "puppet_windows_node"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "ansible/puppet_node_windows.yml",
+            "user": "Administrator",
+            "extra_arguments": [
+                "-e",
+                "ansible_winrm_server_cert_validation=ignore"
+            ]
+        }
+    ]
+}

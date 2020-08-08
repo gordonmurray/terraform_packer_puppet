@@ -1,0 +1,13 @@
+<powershell>
+net user Administrator compl3xpassw0rd
+# Enable Winrm for Ansible
+winrm set winrm/config/client/auth '@{Basic="true"}'
+winrm set winrm/config/service/auth '@{Basic="true"}'
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+# Open up the Firewall
+cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes
+cmd.exe /c netsh firewall add portopening TCP 5985 "Port 5985"
+# Provision for Ansible
+(Invoke-WebRequest -URI \"https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1\").Content > ansible.ps1
+./ansible.ps1
+</powershell>

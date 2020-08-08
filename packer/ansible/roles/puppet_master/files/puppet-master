@@ -1,0 +1,1 @@
+JAVA_ARGS="-Xms1024m -Xmx1024m"
