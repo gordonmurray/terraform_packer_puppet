@@ -3,10 +3,10 @@
     "base_ami_id": "ami-089cc16f7f08c4457",
     "region": "eu-west-1",
     "instance_type": "t2.medium",
-    "vpc_id": "vpc-xxxxxx",
-    "subnet_id": "subnet-xxxxxx",
-    "access_key": "xxxxxx",
-    "secret_key": "xxxxxx"
+    "vpc_id": "{{env `VPC`}}",
+    "subnet_id": "{{env `SUBNET`}}",
+    "access_key": "{{env `ACCESS_KEY`}}",
+    "secret_key": "{{env `SECRET_KEY`}}"
   },
   "builders": [
     {

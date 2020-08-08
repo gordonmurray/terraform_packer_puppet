@@ -3,11 +3,11 @@
         "base_ami_id": "ami-0d30f8acc8b87dfd7",
         "region": "eu-west-1",
         "instance_type": "t2.medium",
-        "vpc_id": "vpc-e8bfa78d",
-        "subnet_id": "subnet-a135ded7",
-        "rdp_password": "compl3xpassw0rd",
-        "access_key": "",
-        "secret_key": ""
+        "vpc_id": "{{env `VPC`}}",
+        "subnet_id": "{{env `SUBNET`}}",
+        "access_key": "{{env `ACCESS_KEY`}}",
+        "secret_key": "{{env `SECRET_KEY`}}",
+        "rdp_password": "compl3xpassw0rd"
     },
     "builders": [
         {
