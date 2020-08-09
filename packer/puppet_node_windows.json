@@ -7,7 +7,7 @@
         "subnet_id": "{{env `SUBNET`}}",
         "access_key": "{{env `ACCESS_KEY`}}",
         "secret_key": "{{env `SECRET_KEY`}}",
-        "rdp_password": "compl3xpassw0rd"
+        "rdp_password": "{{env `RDP_PASSWORD`}}"
     },
     "builders": [
         {
@@ -19,9 +19,10 @@
             "source_ami": "{{user `base_ami_id`}}",
             "ami_name": "puppet_windows_node",
             "ami_description": "Puppet Windows node instance",
-            "user_data_file": "ansible/roles/puppet_node_windows/files/userdata.txt",
+            "user_data_file": "./ansible/roles/puppet_node_windows/files/userdata.txt",
             "communicator": "winrm",
             "winrm_username": "Administrator",
+            "winrm_password": "{{user `rdp_password`}}",
             "winrm_use_ssl": false,
             "winrm_insecure": true,
             "vpc_id": "{{user `vpc_id`}}",
@@ -31,17 +32,6 @@
             "tags": {
                 "Name": "puppet_windows_node"
             }
-        }
-    ],
-    "provisioners": [
-        {
-            "type": "ansible",
-            "playbook_file": "ansible/puppet_node_windows.yml",
-            "user": "Administrator",
-            "extra_arguments": [
-                "-e",
-                "ansible_winrm_server_cert_validation=ignore"
-            ]
         }
     ]
 }

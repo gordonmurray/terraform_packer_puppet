@@ -1,5 +1,5 @@
 <powershell>
-net user Administrator compl3xpassw0rd
+net user Administrator MyS3cr3tPassw0rd
 # Enable Winrm for Ansible
 winrm set winrm/config/client/auth '@{Basic="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'

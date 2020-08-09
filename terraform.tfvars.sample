@@ -1,0 +1,6 @@
+aws_account_id = ""
+vpc            = "vpc-xxxxx"
+subnet         = "subnet-xxxxx"
+hosted_zone_id = ""
+domain_name    = "example.com"
+profile        = "example"

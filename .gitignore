@@ -1,0 +1,5 @@
+set.txt
+terraform.tfvars
+.terraform
+*.tfstate
+*.backup
