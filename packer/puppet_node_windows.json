@@ -33,5 +33,19 @@
                 "Name": "puppet_windows_node"
             }
         }
+    ],
+    "provisioners": [
+        {
+            "type": "powershell",
+            "scripts": [
+                "ansible/roles/puppet_node_windows/files/chocolateyinstall.ps1"
+            ]
+        },
+        {
+            "type": "powershell",
+            "inline": [
+                "choco install -y puppet-agent --version=6.0.4"
+            ]
+        }
     ]
 }
